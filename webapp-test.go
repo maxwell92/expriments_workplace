@@ -12,6 +12,7 @@ func main() {
     http.HandleFunc("/", Index)
     http.HandleFunc("/mushroom", Mushroom)
     http.HandleFunc("/normal", normal)
+    http.HandleFunc("/random", random) 
     http.HandleFunc("/database", database)
 //    http.HandleFunc("/magic/{magicID}", MagicShow)
     http.ListenAndServe(":9999", nil)
@@ -37,6 +38,12 @@ func getRandtime() (rtime int) {
 }
 
 func normal(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, "waiting %d seconds to deal with\n", rtime)
+    time.Sleep(time.Second * time.Duration(5)) 
+    fmt.Fprintln(w, "it's done!\n")
+}
+
+func random(w http.ResponseWriter, r *http.Request) {
     rtime := getRandtime()
     fmt.Fprintf(w, "waiting %d seconds to deal with\n", rtime)
     time.Sleep(time.Second * time.Duration(rtime)) 
@@ -51,8 +58,8 @@ func database(w http.ResponseWriter, r *http.Request) {
         panic(err)
     }
     
-   // rows, err := db.Query("SELECT * FROM phones")
-    rows, err := db.Query("SELECT serid, name FROM phones WHERE serid = 2")
+    rows, err := db.Query("SELECT * FROM phones")
+   // rows, err := db.Query("SELECT serid, name FROM phones WHERE serid = 2")
 
     if err != nil {
         fmt.Fprintln(w, "selecting error")
