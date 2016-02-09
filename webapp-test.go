@@ -5,6 +5,7 @@ import (
     "time"
     "database/sql"
     _ "github.com/go-sql-driver/mysql"
+    "math/rand"
 )
 
 func main() {
@@ -28,9 +29,18 @@ func MagicShow(w http.ResponseWriter, r *http.Request) {
 //    fmt.Fprintln(w, "%d\n", magicID)
 }
 
+func getRandtime() (rtime int) {
+    r := rand.New(rand.NewSource(time.Now().UnixNano()))
+    trand := r.Intn(100)
+    rtime = trand % 10 + 1 
+    return rtime
+}
+
 func normal(w http.ResponseWriter, r *http.Request) {
-    time.Sleep(time.Second * 30) 
-    fmt.Fprintln(w, "waiting to deal with")
+    rtime := getRandtime()
+    fmt.Fprintf(w, "waiting %d seconds to deal with\n", rtime)
+    time.Sleep(time.Second * time.Duration(rtime)) 
+    fmt.Fprintln(w, "it's done!\n")
 }
 
 func database(w http.ResponseWriter, r *http.Request) {
