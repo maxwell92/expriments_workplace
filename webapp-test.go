@@ -38,7 +38,7 @@ func getRandtime() (rtime int) {
 }
 
 func normal(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprintf(w, "waiting %d seconds to deal with\n", rtime)
+    fmt.Fprintf(w, "waiting %d seconds to deal with\n", 5)
     time.Sleep(time.Second * time.Duration(5)) 
     fmt.Fprintln(w, "it's done!\n")
 }
