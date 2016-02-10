@@ -80,7 +80,7 @@ func main() {
 //    price := 1000 
  
     for i := 0; i < 10000; i++ {
-        serid := 105 + i
+        serid := 296487 + i
         name, price := randValues()
         stmt, err := db.Prepare(`INSERT phones (serid, name, price) VALUES(?, ?, ?)`)
         if err != nil {
