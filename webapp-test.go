@@ -52,14 +52,15 @@ func random(w http.ResponseWriter, r *http.Request) {
 
 func database(w http.ResponseWriter, r *http.Request) {
     fmt.Fprintln(w, "Connecting to MySQL...")
-    db, err := sql.Open("mysql", "root:root@tcp(192.168.3.254:3306)/maxwell")
+    db, err := sql.Open("mysql", "maxwell@tcp(192.168.3.3:9306)/exp")
+    //db, err := sql.Open("mysql", "root@tcp(127.0.0.1:9306)/exp")
     if err != nil {
         fmt.Fprintln(w, "connecting to database error")
         panic(err)
     }
     
-    rows, err := db.Query("SELECT * FROM phones")
-   // rows, err := db.Query("SELECT serid, name FROM phones WHERE serid = 2")
+    //rows, err := db.Query("SELECT * FROM phones")
+    rows, err := db.Query("SELECT serid, name, price FROM phones WHERE price = 4000")
 
     if err != nil {
         fmt.Fprintln(w, "selecting error")

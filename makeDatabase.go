@@ -1,3 +1,5 @@
+//making a database
+
 package main
 import (
     "fmt"
